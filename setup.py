@@ -39,6 +39,7 @@ setup(
     ],
     packages=[
         'presstatic',
+        'presstatic.storage',
     ],
      entry_points={
         'console_scripts': [
