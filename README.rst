@@ -38,10 +38,44 @@ Usage
 	
 	$> pstatic -http ~/projects/example.com
 
+Templates
+---------
+
+We use the awesome `Jinja <http://jinja.pocoo.org/>`_ template engine.
+
+Assets
+------
+
+We are using `webassets <https://github.com/miracle2k/webassets>`_ for asset bundling.
+
+If you intend to use assets you need to add a configuration file (YAML) to your root project.
+Please see the webassets docs to see for more details.
+
+Here's an example:
+
+.. code-block:: yaml
+
+	url: /static
+	debug: True
+	bundles:
+	    all_css:
+	        filters: yui_css
+	        output: static/css/packed.css
+	        contents:
+	            - static/css/style.css
+	            - static/css/jquery.fancybox.css
+	    all_js:
+	        filters: yui_js
+	        output: static/js/packed.js
+	        contents:
+	            - static/js/jquery-latest.min.js
+	            - static/js/jquery.fancybox.pack.js
+	            - static/js/app.js
+
 TODO
 ----
 
-* Add Template support
-* Add Asset support
+* Add Template support [DRAFT]
+* Add Asset support [DRAFT]
 * Add watcher support 
 * Upload only modified files [DONE]
