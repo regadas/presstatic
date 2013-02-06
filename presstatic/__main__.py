@@ -26,6 +26,9 @@ def http_server_on_dir(host, port, dir):
 
 def main():
     cli_parser = argparse.ArgumentParser(prog='presstatic')
+    cli_parser.add_argument('-output',
+                            help="relative directory for the generated files.",
+                            default='public')
     cli_parser.add_argument('-http',
                             metavar='HOST:PORT',
                             help="creates an HTTP Server with <directory> as root dir.")
@@ -37,12 +40,14 @@ def main():
 
     cli_args = cli_parser.parse_args()
 
+    site_builder = SiteBuilder(cli_args.directory, output=cli_args.output)
+    site_builder.build()
+
     if cli_args.http:
         host, port = cli_args.http.split(':')
-        http_server_on_dir(host, port, cli_args.directory)
+        root_dir = os.path.join(cli_args.directory, cli_args.output)
+        http_server_on_dir(host, port, root_dir)
     elif cli_args.s3:
-        site_builder = SiteBuilder(cli_args.directory)
-        site_builder.build()
         s3.S3Storage(cli_args.s3).store(site_builder.output_path)
         puts(help.s3_setup(bucket=cli_args.s3))
 

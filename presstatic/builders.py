@@ -90,6 +90,6 @@ class SiteBuilder(object):
         for other in others:
             dirname = os.path.join(self.output_path, os.path.dirname(other))
             if not os.path.exists(dirname):
-                os.mkdir(dirname)
+                os.makedirs(dirname)
 
             shutil.copyfile(os.path.join(self.path, other), os.path.join(self.output_path, other))
