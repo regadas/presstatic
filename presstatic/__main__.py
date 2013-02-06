@@ -9,6 +9,7 @@ import SocketServer
 from clint.textui import colored, puts, indent
 
 from presstatic import help
+from presstatic.builders import SiteBuilder
 from presstatic.storage import s3
 
 
@@ -40,7 +41,9 @@ def main():
         host, port = cli_args.http.split(':')
         http_server_on_dir(host, port, cli_args.directory)
     elif cli_args.s3:
-        s3.S3Storage(cli_args.s3).store(cli_args.directory)
+        site_builder = SiteBuilder(cli_args.directory)
+        site_builder.build()
+        s3.S3Storage(cli_args.s3).store(site_builder.output_path)
         puts(help.s3_setup(bucket=cli_args.s3))
 
 if __name__ == '__main__':

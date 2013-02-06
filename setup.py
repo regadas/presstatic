@@ -24,12 +24,15 @@ required = [
     'clint>=0.3.1',
     'simplejson>=3.0.7',
     'boto>=2.8.0',
+    'webassets>=0.8',
+    'Jinja2>=2.6',
+    'yuicompressor>=2.4.7'
 ]
 
 setup(
     name='presstatic',
     version=presstatic.__version__,
-    description='Python Command-line Application Tools',
+    description='Deploy static websites to Amazon S3 easily.',
     long_description=open('README.rst').read(),
     author='Filipe Regadas',
     author_email='filipe@regadas.org',
