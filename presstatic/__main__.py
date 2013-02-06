@@ -13,7 +13,7 @@ from presstatic.builders import SiteBuilder
 from presstatic.storage import s3
 
 
-def http_server_on_dir(host, port, dir):
+def http_server(host, port, dir):
     Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
     os.chdir(dir)
     httpd = SocketServer.TCPServer((host, int(port)), Handler)
@@ -21,7 +21,12 @@ def http_server_on_dir(host, port, dir):
     with indent(4, quote='>>'):
         puts(colored.green("Serving {path}".format(path=dir)))
         puts(colored.yellow("@ {host}:{port} ".format(host=host, port=port)))
-    httpd.serve_forever()
+
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
 
 
 def main():
@@ -46,7 +51,8 @@ def main():
     if cli_args.http:
         host, port = cli_args.http.split(':')
         root_dir = os.path.join(cli_args.directory, cli_args.output)
-        http_server_on_dir(host, port, root_dir)
+        http_server(host, port, root_dir)
+
     elif cli_args.s3:
         s3.S3Storage(cli_args.s3).store(site_builder.output_path)
         puts(help.s3_setup(bucket=cli_args.s3))
