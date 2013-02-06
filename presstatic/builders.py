@@ -28,8 +28,7 @@ class TemplateBuilder(object):
             self.assets_env = AssetsEnvironment()
 
         if 'directory' not in self.assets_env.config:
-            directory = os.path.join(self.output_path, static_path)
-            self.assets_env.directory = directory
+            self.assets_env.directory = self.output_path
 
         if 'url' not in self.assets_env.config:
             self.assets_env.url = static_url
