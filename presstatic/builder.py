@@ -74,17 +74,17 @@ class SiteBuilder(object):
         self.path = path
         self.output_path = os.path.join(path, output)
 
-        self.tmpl_builder_class = tmpl_builder_class(self.path, output, **kwargs)
+        self.tmpl_builder = tmpl_builder_class(self.path, output, **kwargs)
 
     def build(self):
         if not os.path.exists(self.output_path):
             os.mkdir(self.output_path)
 
-        templates, bundles, others = self.tmpl_builder_class.list_files()
+        templates, bundles, others = self.tmpl_builder.list_files()
 
         for template in templates:
             # XXX: for now we are not handling contexts
-            self.tmpl_builder_class.build_template(template)
+            self.tmpl_builder.build_template(template)
 
         for other in others:
             dirname = os.path.join(self.output_path, os.path.dirname(other))
