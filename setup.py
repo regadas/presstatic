@@ -26,7 +26,8 @@ required = [
     'boto>=2.8.0',
     'webassets>=0.8',
     'Jinja2>=2.6',
-    'yuicompressor>=2.4.7'
+    'yuicompressor>=2.4.7',
+    'watchdog>=0.6.0'
 ]
 
 setup(
