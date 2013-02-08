@@ -32,11 +32,14 @@ Usage
 
 	$> pstatic -s3 example.com ~/projects/example.com
   	
-* serve your website: (the provided http server is intended for development only)
+* preview your website while you develop it:
+
+	Any change in files/directories will trigger the builder. Because of this and other reasons this http server is intended for development only.
 
 .. code-block:: shell
 	
 	$> pstatic -http ~/projects/example.com
+
 
 Templates
 ---------
@@ -77,5 +80,5 @@ TODO
 
 * Add Template support [DRAFT]
 * Add Asset support [DRAFT]
-* Add watcher support 
+* Add watcher support [DRAFT]
 * Upload only modified files [DONE]
