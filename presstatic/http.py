@@ -9,11 +9,7 @@ from threading import Thread
 class HttpServer(object):
 
     def __init__(self, host, port, root_dir):
-        self.host = host
-        self.port = port
-        self.root_dir = root_dir
-
-        os.chdir(self.root_dir)
+        os.chdir(root_dir)
         handler = SimpleHTTPServer.SimpleHTTPRequestHandler
         handler.allow_reuse_address = True
         self.server = SocketServer.TCPServer((host, int(port)), handler)
