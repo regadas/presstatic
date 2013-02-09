@@ -24,6 +24,17 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S')
 
 
+def signal_handler(signal, frame):
+    puts('You pressed Ctrl+C!')
+
+    if http_server:
+        http_server.stop()
+    if watcher:
+        watcher.stop()
+
+    sys.exit(0)
+
+
 def main():
     global http_server, watcher
 
@@ -49,9 +60,7 @@ def main():
         host, port = cli_args.http.split(':')
         root_dir = os.path.join(cli_args.directory, cli_args.output)
 
-        with indent(4, quote='>>'):
-            puts(colored.green("Serving {path}".format(path=root_dir)))
-            puts(colored.yellow("@ {host}:{port} ".format(host=host, port=port)))
+        signal.signal(signal.SIGINT, signal_handler)
 
         http_server = HttpServer(host, port, root_dir)
         http_server.start()
@@ -59,23 +68,16 @@ def main():
         watcher = Watcher(site_builder)
         watcher.start()
 
+        with indent(4, quote='>>'):
+            puts(colored.green("Serving {path}".format(path=root_dir)))
+            puts(colored.yellow("@ {host}:{port} ".format(host=host, port=port)))
+
+        signal.pause()
+
     elif cli_args.s3:
         s3.S3Storage(cli_args.s3).store(site_builder.output_path)
         puts(help.s3_setup(bucket=cli_args.s3))
 
 
-def signal_handler(signal, frame):
-    puts('You pressed Ctrl+C!')
-
-    if http_server:
-        http_server.stop()
-    if watcher:
-        watcher.stop()
-
-    sys.exit(0)
-
-
 if __name__ == '__main__':
     main()
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.pause()
