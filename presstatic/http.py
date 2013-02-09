@@ -10,11 +10,15 @@ class HttpServer(object):
 
     def __init__(self, host, port, root_dir):
         os.chdir(root_dir)
+
         handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-        handler.allow_reuse_address = True
-        self.server = SocketServer.TCPServer((host, int(port)), handler)
+        self.server = SocketServer.TCPServer((host, int(port)), handler, False)
+        self.server.allow_reuse_address = True
 
     def start(self):
+        self.server.server_bind()
+        self.server.server_activate()
+
         self.server_thread = Thread(target=self.server.serve_forever)
         self.server_thread.start()
 
