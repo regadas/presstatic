@@ -57,10 +57,10 @@ def main():
     site_builder.build()
 
     if cli_args.http:
+        signal.signal(signal.SIGINT, signal_handler)
+
         host, port = cli_args.http.split(':')
         root_dir = os.path.join(cli_args.directory, cli_args.output)
-
-        signal.signal(signal.SIGINT, signal_handler)
 
         http_server = HttpServer(host, port, root_dir)
         http_server.start()
@@ -69,8 +69,9 @@ def main():
         watcher.start()
 
         with indent(4, quote='>>'):
-            puts(colored.green("Serving {path}".format(path=root_dir)))
-            puts(colored.yellow("@ {host}:{port} ".format(host=host, port=port)))
+            puts(colored.green("Serving {path} @ {host}:{port}".format(path=root_dir,
+                                                                       host=host,
+                                                                       port=port)))
 
         signal.pause()
 
