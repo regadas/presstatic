@@ -48,7 +48,7 @@ setup(
         ],
     },
     install_requires=install_requires,
-    license='BSD',
+    license='MIT',
     classifiers=(
 #       'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
@@ -61,7 +61,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.1',
         'Programming Language :: Python :: 3.2',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Topic :: Internet',
         'Topic :: Terminals',
         'Topic :: Utilities'

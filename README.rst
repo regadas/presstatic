@@ -1,7 +1,7 @@
 presstatic
 ----------
 
-by Filipe Regadas (@regadas)
+by Filipe Regadas (`@regadas <http://twitter.com/regadas>`_)
 
 This is a little CLI utility that helps deploying static websites to Amazon S3.
 
@@ -83,3 +83,9 @@ TODO
 * Add Template support [DRAFT]
 * Add Asset support [DRAFT]
 * Add watcher support [DRAFT]
+
+License
+_______
+
+presstatic is under MIT license. See the `LICENSE <https://github.com/regadas/presstatic/blob/master/LICENSE>`_ file for details.
+
