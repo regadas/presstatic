@@ -1,6 +1,8 @@
 presstatic
 ----------
 
+by Filipe Regadas (@regadas)
+
 This is a little CLI utility that helps deploying static websites to Amazon S3.
 
 Usage
@@ -81,4 +83,3 @@ TODO
 * Add Template support [DRAFT]
 * Add Asset support [DRAFT]
 * Add watcher support [DRAFT]
-* Upload only modified files [DONE]
