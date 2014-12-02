@@ -3,32 +3,28 @@
 
 import os
 import sys
+import presstatic
+from pip.req import parse_requirements
 
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-import presstatic
+
+install_reqs = parse_requirements('requirements.txt')
+install_requires = [str(ir.req) for ir in install_reqs]
 
 
 def publish():
     """Publish to PyPi"""
     os.system("python setup.py sdist upload")
 
+
 if sys.argv[-1] == "publish":
     publish()
     sys.exit()
 
-required = [
-    'clint>=0.3.1',
-    'simplejson>=3.0.7',
-    'boto>=2.8.0',
-    'webassets>=0.8',
-    'Jinja2>=2.6',
-    'yuicompressor>=2.4.7',
-    'watchdog>=0.6.0'
-]
 
 setup(
     name='presstatic',
@@ -51,7 +47,7 @@ setup(
             'presstatic = presstatic.manage:main',
         ],
     },
-    install_requires=required,
+    install_requires=install_requires,
     license='BSD',
     classifiers=(
 #       'Development Status :: 5 - Production/Stable',
